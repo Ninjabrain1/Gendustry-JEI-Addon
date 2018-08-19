@@ -54,7 +54,6 @@ public class CategoryMutagen implements IRecipeCategory<MutagenWrapper>{
 		IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
 		
 		tankOverlay = Internal.getHelpers().getGuiHelper().createDrawable(new ForestryResource("textures/gui/fermenter.png"), 192, 0, 16, 58);
-		System.out.println("Settign recipe");
 		fluidStacks.init(0, false, 0, 0, 16, 58, 2000, false, tankOverlay);
 		
 		itemStacks.init(0, true, 50, 0);

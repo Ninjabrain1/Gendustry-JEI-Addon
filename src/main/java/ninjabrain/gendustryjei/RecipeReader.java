@@ -50,7 +50,6 @@ public class RecipeReader {
 			GendustryJEI.logger.error("Unknown StackRef when processing mutagen recipe: " + stack);
 		}
 		String registryName = modid + ":" + name;
-		System.out.println("Mutagen Recipe: " + registryName + " will give " + rsMutagen.mb() + " mB of mutagen.");
 		mutagenWrappers.add(new MutagenWrapper(new ItemStack(Item.getByNameOrId(registryName)), rsMutagen.mb()));
 	}
 	
@@ -65,7 +64,6 @@ class CustomRecipeLoader extends Loader {
 	
 	@Override
 	public void processConfigStatement(ConfigStatement s) {
-		//super.processRecipeStatement(s);
 		if (s instanceof CsRecipeBlock) {
 			CsRecipeBlock block = (CsRecipeBlock)s;
 			List<RecipeStatement> recipes = block.list();
