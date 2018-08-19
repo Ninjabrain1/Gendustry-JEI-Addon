@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gendustryjei",
+  "name": "Gendustry JEI Addon",
+  "description": "Integrates Gendustry recipes with JEI.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Ninjabrain1"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
