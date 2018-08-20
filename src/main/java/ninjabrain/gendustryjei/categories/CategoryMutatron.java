@@ -1,5 +1,7 @@
 package ninjabrain.gendustryjei.categories;
 
+import java.util.List;
+
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -9,7 +11,7 @@ import mezz.jei.gui.elements.DrawableBlank;
 import net.bdew.gendustry.config.Tuning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import ninjabrain.gendustryjei.wrappers.WrapperDNA;
+import net.minecraft.item.ItemStack;
 import ninjabrain.gendustryjei.wrappers.WrapperMutatron;
 
 public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
@@ -66,9 +68,18 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 		itemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex == 2) tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
 		});
-
+		
+		// Set output to show the queen
+		List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
+		if (outputs.size() != 0) {
+			if (outputs.get(0).size() != 0) {
+				ingredients.setOutput(ItemStack.class, ingredients.getOutputs(ItemStack.class).get(0).get(0));
+			}
+		}
+		
 		itemStacks.set(ingredients);
 		fluidStacks.set(ingredients);
+		
 	}
 
 	@Override
