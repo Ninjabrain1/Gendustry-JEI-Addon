@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class WrapperDNA implements IRecipeWrapper {
 	
@@ -23,6 +24,7 @@ public class WrapperDNA implements IRecipeWrapper {
 	 */
 	public WrapperDNA(ItemStack input, int mb) {
 		inputs = new ArrayList<ItemStack>();
+		input.setItemDamage(OreDictionary.WILDCARD_VALUE);
 		inputs.add(input);
 		inputs.add(new ItemStack(Item.getByNameOrId("gendustry:labware")));
 		this.output = new FluidStack(FluidRegistry.getFluid("liquiddna"), mb);
@@ -30,7 +32,6 @@ public class WrapperDNA implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		// TODO add for all genomes
 		ingredients.setInputs(ItemStack.class, inputs);
 		ingredients.setOutput(FluidStack.class, output);
 	}
