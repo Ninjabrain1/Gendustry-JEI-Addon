@@ -16,7 +16,7 @@ public abstract class CategoryBase<T extends IRecipeWrapper> implements IRecipeC
 	private static final ResourceLocation widgetTexture = new ResourceLocation(GendustryJEI.MODID,
 			"textures/gui/widgets.png");
 	
-	protected IDrawable tankOverlay, tankBackground, itemSlotBackground, arrowBackground;
+	protected IDrawable tankOverlay, tankBackground, energyOverlay, itemSlotBackground, arrowBackground;
 	
 	private final Item machine;
 	private String localizedName;
@@ -29,6 +29,7 @@ public abstract class CategoryBase<T extends IRecipeWrapper> implements IRecipeC
 		GuiHelper helper = Internal.getHelpers().getGuiHelper();
 		tankOverlay = helper.createDrawable(widgetTexture, 19, 1, 16, 58);
 		tankBackground = helper.createDrawable(widgetTexture, 0, 0, 18, 60);
+		energyOverlay = helper.createDrawable(widgetTexture, 0, 60, 18, 60);
 		itemSlotBackground = helper.createDrawable(widgetTexture, 36, 0, 18, 18);
 		arrowBackground = helper.createDrawable(widgetTexture, 54, 0, 53, 15);
 		

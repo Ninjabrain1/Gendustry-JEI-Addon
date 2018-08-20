@@ -12,11 +12,11 @@ import mezz.jei.gui.elements.DrawableBlank;
 import net.bdew.gendustry.config.Tuning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
+import ninjabrain.gendustryjei.wrappers.WrapperProtein;
 
-public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
-
-	public static final String UUID = "GENDUSTRY_MUTAGEN_PRODUCER";
+public class CategoryProtein extends CategoryBase<WrapperProtein>{
+	
+	public static final String UUID = "GENDUSTRY_PROTEIN_LIQUIFIER";
 
 	private IDrawable background;
 
@@ -27,9 +27,9 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 	
 	// The same for all recipes
 	private int rfPerItem, maxStoredRf;
-
-	public CategoryMutagen() {
-		super(Item.getByNameOrId("gendustry:mutagen_producer"));
+	
+	public CategoryProtein() {
+		super(Item.getByNameOrId("gendustry:liquifier"));
 		background = new DrawableBlank(130, 60) {
 			@Override
 			public void draw(Minecraft minecraft, int xOffset, int yOffset) {
@@ -40,8 +40,8 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 				tankBackground.draw(minecraft, energyX, energyY);
 			}
 		};
-		rfPerItem = Tuning.getSection("Machines").getSection("MutagenProducer").getInt("MjPerItem");
-		maxStoredRf = Tuning.getSection("Machines").getSection("MutagenProducer").getInt("MaxStoredEnergy");
+		rfPerItem = Tuning.getSection("Machines").getSection("Liquifier").getInt("MjPerItem");
+		maxStoredRf = Tuning.getSection("Machines").getSection("Liquifier").getInt("MaxStoredEnergy");
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, WrapperMutagen recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, WrapperProtein recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
 
@@ -78,5 +78,5 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 	public String getUid() {
 		return UUID;
 	}
-
+	
 }
