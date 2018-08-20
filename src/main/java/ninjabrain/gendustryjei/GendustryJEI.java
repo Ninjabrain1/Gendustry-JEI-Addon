@@ -28,4 +28,11 @@ public class GendustryJEI {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 	}
+	
+	// TODO Mutatron + Advanced Mutatron
+	// TODO Sampler
+	// TODO Imprinter
+	// TODO Genetic Transposer
+	// TODO Replicator
+	// TODO Combine gene samples with templates in crafting grid
 }
