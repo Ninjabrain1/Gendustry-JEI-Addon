@@ -1,4 +1,4 @@
-# GendustryJEI
+# Gendustry JEI Addon
 
 Integrates recipes from Gendustry's various machines with Just Enough Items. The mod is a work in progress and currently only supports recipes from the following machines:
 
