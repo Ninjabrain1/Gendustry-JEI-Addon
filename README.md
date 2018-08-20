@@ -6,6 +6,7 @@ Integrates recipes from Gendustry's various machines with Just Enough Items. The
   <li> Mutagen Producer </li>
   <li> DNA Extractor </li>
   <li> Protein Liquifier </li>
+  <li> Mutatron </li>
 </ul>
 
 No build available yet.
