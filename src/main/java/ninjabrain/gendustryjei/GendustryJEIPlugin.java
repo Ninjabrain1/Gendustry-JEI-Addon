@@ -1,9 +1,16 @@
 package ninjabrain.gendustryjei;
 
+import java.util.ArrayList;
+
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import ninjabrain.gendustryjei.categories.CategoryMutagen;
+import ninjabrain.gendustryjei.init.RecipeConverter;
+import ninjabrain.gendustryjei.init.RecipeConverterMutagen;
+import ninjabrain.gendustryjei.init.RecipeReader;
+import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
 
 @JEIPlugin
 public class GendustryJEIPlugin implements IModPlugin {
@@ -15,7 +22,15 @@ public class GendustryJEIPlugin implements IModPlugin {
 	
 	@Override
 	public void register(IModRegistry registry) {
-		registry.addRecipes(RecipeReader.mutagenWrappers, CategoryMutagen.UUID);
+		ArrayList<WrapperMutagen> mutagenWrappers = new ArrayList<WrapperMutagen>();
+		
+		RecipeConverter<?>[] converters = new RecipeConverter[] {
+				new RecipeConverterMutagen(mutagenWrappers)
+		};
+		
+		RecipeReader.convertGendustryRecipes(converters);
+		
+		registry.addRecipes(mutagenWrappers, CategoryMutagen.UUID);
 		
 	}
 	

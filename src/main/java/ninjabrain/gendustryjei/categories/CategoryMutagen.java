@@ -1,4 +1,4 @@
-package ninjabrain.gendustryjei;
+package ninjabrain.gendustryjei.categories;
 
 import forestry.core.render.ForestryResource;
 import mezz.jei.Internal;
@@ -12,8 +12,10 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.gui.GuiHelper;
 import net.bdew.gendustry.Gendustry;
 import net.minecraft.util.ResourceLocation;
+import ninjabrain.gendustryjei.GendustryJEI;
+import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
 
-public class CategoryMutagen implements IRecipeCategory<MutagenWrapper>{
+public class CategoryMutagen implements IRecipeCategory<WrapperMutagen>{
 	
 	public static final String UUID = "GENDUSTRY_MUTAGEN_PRODUCER";
 	
@@ -49,7 +51,7 @@ public class CategoryMutagen implements IRecipeCategory<MutagenWrapper>{
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, MutagenWrapper recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, WrapperMutagen recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
 		
