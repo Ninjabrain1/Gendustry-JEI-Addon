@@ -10,6 +10,11 @@ import net.bdew.lib.recipes.RecipesHelper;
 import ninjabrain.gendustryjei.GendustryJEI;
 import scala.collection.immutable.List;
 
+/**
+ * 
+ * Immitates the way Gendustry reads recipes to convert them to a format that JEI can understand.
+ *
+ */
 public class RecipeReader {
 
 	/**
