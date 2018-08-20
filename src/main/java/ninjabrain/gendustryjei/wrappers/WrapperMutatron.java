@@ -14,15 +14,16 @@ import scala.actors.threadpool.Arrays;
 
 public class WrapperMutatron implements IRecipeWrapper{
 	
-	ArrayList<ItemStack> inputItems;
+	ArrayList<List<ItemStack>> inputItems;
 	FluidStack inputFluid;
-	List<?> output;
+	List<ItemStack> output;
 	
-	public WrapperMutatron(ItemStack input1, ItemStack input2, List<?> output) {
-		inputItems = new ArrayList<ItemStack>();
+	@SuppressWarnings("unchecked")
+	public WrapperMutatron(List<ItemStack> input1, List<ItemStack> input2, List<ItemStack> output) {
+		inputItems = new ArrayList<List<ItemStack>>();
 		inputItems.add(input1);
 		inputItems.add(input2);
-		inputItems.add(new ItemStack(Item.getByNameOrId("gendustry:labware")));
+		inputItems.add(Arrays.asList(new ItemStack[] {new ItemStack(Item.getByNameOrId("gendustry:labware"))}));
 		int fluidAmount = Tuning.getSection("Machines").getSection("Mutatron").getInt("MutagenPerItem");
 		inputFluid = new FluidStack(FluidRegistry.getFluid("mutagen"), fluidAmount);
 		this.output = output;
@@ -30,7 +31,7 @@ public class WrapperMutatron implements IRecipeWrapper{
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputs(ItemStack.class, inputItems);
+		ingredients.setInputLists(ItemStack.class, inputItems);
 		ingredients.setInput(FluidStack.class, inputFluid);
 		ingredients.setOutput(ItemStack.class, Arrays.asList(new List<?>[] {output}));
 	}

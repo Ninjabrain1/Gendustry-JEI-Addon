@@ -16,7 +16,7 @@ import ninjabrain.gendustryjei.wrappers.WrapperProtein;
 
 public class CategoryProtein extends CategoryBase<WrapperProtein>{
 	
-	public static final String UUID = "GENDUSTRY_PROTEIN_LIQUIFIER";
+	public static final String UID = "GENDUSTRY_PROTEIN_LIQUIFIER";
 
 	private IDrawable background;
 
@@ -72,7 +72,7 @@ public class CategoryProtein extends CategoryBase<WrapperProtein>{
 
 	@Override
 	public String getUid() {
-		return UUID;
+		return UID;
 	}
 	
 }

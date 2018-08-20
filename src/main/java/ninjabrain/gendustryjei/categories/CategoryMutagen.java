@@ -13,7 +13,7 @@ import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
 
 public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 
-	public static final String UUID = "GENDUSTRY_MUTAGEN_PRODUCER";
+	public static final String UID = "GENDUSTRY_MUTAGEN_PRODUCER";
 
 	private IDrawable background;
 
@@ -57,7 +57,7 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 
 	@Override
 	public String getUid() {
-		return UUID;
+		return UID;
 	}
 
 }

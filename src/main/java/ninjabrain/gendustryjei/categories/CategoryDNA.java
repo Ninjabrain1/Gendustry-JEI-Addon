@@ -13,7 +13,7 @@ import ninjabrain.gendustryjei.wrappers.WrapperDNA;
 
 public class CategoryDNA extends CategoryBase<WrapperDNA> {
 	
-	public static final String UUID = "GENDUSTRY_DNA_LIQUIFIER";
+	public static final String UID = "GENDUSTRY_DNA_LIQUIFIER";
 
 	private IDrawable background;
 
@@ -66,7 +66,7 @@ public class CategoryDNA extends CategoryBase<WrapperDNA> {
 
 	@Override
 	public String getUid() {
-		return UUID;
+		return UID;
 	}
 	
 }

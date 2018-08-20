@@ -13,10 +13,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import ninjabrain.gendustryjei.wrappers.WrapperMutatron;
+import scala.actors.threadpool.Arrays;
 
 public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 	
-	public static final String UUID = "GENDUSTRY_MUTATRON";
+	public static final String UID = "GENDUSTRY_MUTATRON";
 
 	private IDrawable background;
 
@@ -69,13 +70,20 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 			if (slotIndex == 2) tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
 		});
 		
-		// Set output to show the queen
-		List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
-		if (outputs.size() != 0) {
-			if (outputs.get(0).size() != 0) {
-				ingredients.setOutput(ItemStack.class, ingredients.getOutputs(ItemStack.class).get(0).get(0));
-			}
-		}
+		// Spaghetti solution, but anything else would have been too complicated
+		// Each list for ingredient slot looks like: [drone, princess, queen]
+		// Remove princesses and queens from drone slot
+		List<ItemStack> droneIngredients = ingredients.getInputs(ItemStack.class).get(0);
+		droneIngredients.remove(1);
+		droneIngredients.remove(1);
+		// Remove drones and queens from princess slot
+		List<ItemStack> princessIngredients = ingredients.getInputs(ItemStack.class).get(1);
+		princessIngredients.remove(0);
+		princessIngredients.remove(1);
+		// Remove drones and princesses from queen slot
+		List<ItemStack> queenIngredients = ingredients.getOutputs(ItemStack.class).get(0);
+		queenIngredients.remove(0);
+		queenIngredients.remove(0);
 		
 		itemStacks.set(ingredients);
 		fluidStacks.set(ingredients);
@@ -84,7 +92,7 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 
 	@Override
 	public String getUid() {
-		return UUID;
+		return UID;
 	}
 	
 }

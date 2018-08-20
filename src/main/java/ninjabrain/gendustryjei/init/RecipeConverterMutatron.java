@@ -11,7 +11,6 @@ import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.genetics.IIndividual;
 import net.bdew.gendustry.config.Tuning;
-import net.bdew.gendustry.config.loader.RsMutation;
 import net.bdew.lib.recipes.RecipeStatement;
 import net.bdew.lib.recipes.gencfg.ConfigSection;
 import net.minecraft.item.ItemStack;
@@ -20,6 +19,7 @@ import scala.actors.threadpool.Arrays;
 
 public class RecipeConverterMutatron extends RecipeConverter<WrapperMutatron> {
 
+	@SuppressWarnings("unchecked")
 	public RecipeConverterMutatron(ArrayList<WrapperMutatron> wrapperList) {
 		super(wrapperList);
 		// long startTime = System.nanoTime();
@@ -49,17 +49,24 @@ public class RecipeConverterMutatron extends RecipeConverter<WrapperMutatron> {
 					String uidDrone = speciesDrone.getUID();
 					String uidPrincess = speciesPrincess.getUID();
 
-					IIndividual drone = BeeManager.beeRoot.templateAsIndividual(genomes.get(uidDrone));
-					IIndividual princess = BeeManager.beeRoot.templateAsIndividual(genomes.get(uidPrincess));
+					IIndividual input1 = BeeManager.beeRoot.templateAsIndividual(genomes.get(uidDrone));
+					IIndividual input2 = BeeManager.beeRoot.templateAsIndividual(genomes.get(uidPrincess));
 					IIndividual result = BeeManager.beeRoot.templateAsIndividual(mutation.getTemplate());
-					ItemStack input1 = BeeManager.beeRoot.getMemberStack(drone, EnumBeeType.DRONE);
-					ItemStack input2 = BeeManager.beeRoot.getMemberStack(princess, EnumBeeType.PRINCESS);
+					ItemStack input1Drone = BeeManager.beeRoot.getMemberStack(input1, EnumBeeType.DRONE);
+					ItemStack input1Princess = BeeManager.beeRoot.getMemberStack(input1, EnumBeeType.PRINCESS);
+					ItemStack input1Queen = BeeManager.beeRoot.getMemberStack(input1, EnumBeeType.QUEEN);
+					ItemStack input2Drone = BeeManager.beeRoot.getMemberStack(input2, EnumBeeType.DRONE);
+					ItemStack input2Princess = BeeManager.beeRoot.getMemberStack(input2, EnumBeeType.PRINCESS);
+					ItemStack input2Queen = BeeManager.beeRoot.getMemberStack(input2, EnumBeeType.QUEEN);
 					ItemStack outputDrone = BeeManager.beeRoot.getMemberStack(result, EnumBeeType.DRONE);
 					ItemStack outputPrincess = BeeManager.beeRoot.getMemberStack(result, EnumBeeType.PRINCESS);
 					ItemStack outputQueen = BeeManager.beeRoot.getMemberStack(result, EnumBeeType.QUEEN);
 					// Add princess and drone as output for convenience
-					wrapperList.add(new WrapperMutatron(input1, input2,
-							Arrays.asList(new ItemStack[] { outputQueen, outputPrincess, outputDrone })));
+					// TODO add queens as input ingredients (for convenience)
+					wrapperList.add(new WrapperMutatron(
+							Arrays.asList(new ItemStack[] { input1Drone, input1Princess, input1Queen}),
+							Arrays.asList(new ItemStack[] { input2Drone, input2Princess, input2Queen}),
+							Arrays.asList(new ItemStack[] { outputDrone, outputPrincess, outputQueen})));
 				}
 			}
 		}

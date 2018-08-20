@@ -6,6 +6,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import ninjabrain.gendustryjei.categories.CategoryBase;
 import ninjabrain.gendustryjei.categories.CategoryDNA;
@@ -57,14 +58,16 @@ public class GendustryJEIPlugin implements IModPlugin {
 		};
 		RecipeReader.convertGendustryRecipes(converters);
 		
-		registry.addRecipes(mutagenWrappers, CategoryMutagen.UUID);
-		registry.addRecipes(proteinWrappers, CategoryProtein.UUID);
-		registry.addRecipes(dnaWrappers, CategoryDNA.UUID);
-		registry.addRecipes(mutatronWrappers, CategoryMutatron.UUID);
+		registry.addRecipes(mutagenWrappers, CategoryMutagen.UID);
+		registry.addRecipes(proteinWrappers, CategoryProtein.UID);
+		registry.addRecipes(dnaWrappers, CategoryDNA.UID);
+		registry.addRecipes(mutatronWrappers, CategoryMutatron.UID);
 		
 		for (CategoryBase<?> category : categories) {
 			registry.addRecipeCatalyst(new ItemStack(category.getMachine()), category.getUid());
 		}
+		// Mutatron recipes also belong to the Advanced Mutatron
+		registry.addRecipeCatalyst(new ItemStack(Item.getByNameOrId("gendustry:mutatron_advanced")), CategoryMutatron.UID);
 		
 	}
 	
