@@ -6,6 +6,8 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.minecraft.item.ItemStack;
+import ninjabrain.gendustryjei.categories.CategoryBase;
 import ninjabrain.gendustryjei.categories.CategoryMutagen;
 import ninjabrain.gendustryjei.init.RecipeConverter;
 import ninjabrain.gendustryjei.init.RecipeConverterMutagen;
@@ -15,9 +17,16 @@ import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
 @JEIPlugin
 public class GendustryJEIPlugin implements IModPlugin {
 	
+	CategoryBase<?>[] categories;
+	
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
-		registry.addRecipeCategories(new CategoryMutagen());
+		categories = new CategoryBase[] {
+				new CategoryMutagen()
+		};
+		for (CategoryBase<?> category : categories) {
+			registry.addRecipeCategories(category);
+		}
 	}
 	
 	@Override
@@ -31,6 +40,10 @@ public class GendustryJEIPlugin implements IModPlugin {
 		RecipeReader.convertGendustryRecipes(converters);
 		
 		registry.addRecipes(mutagenWrappers, CategoryMutagen.UUID);
+		
+		for (CategoryBase<?> category : categories) {
+			registry.addRecipeCatalyst(new ItemStack(category.getMachine()), category.getUid());
+		}
 		
 	}
 	

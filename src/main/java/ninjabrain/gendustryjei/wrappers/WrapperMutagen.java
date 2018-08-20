@@ -25,7 +25,6 @@ public class WrapperMutagen implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		// TODO Auto-generated method stub
 		ingredients.setInput(ItemStack.class, input);
 		ingredients.setOutput(FluidStack.class, output);
 	}
