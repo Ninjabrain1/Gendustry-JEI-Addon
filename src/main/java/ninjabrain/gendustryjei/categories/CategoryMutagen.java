@@ -28,7 +28,6 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 			public void draw(Minecraft minecraft, int xOffset, int yOffset) {
 				super.draw(minecraft, xOffset, yOffset);
 				tankBackground.draw(minecraft, tankX, tankY);
-//				arrowBackground.draw(minecraft, arrowX, arrowY);
 				drawArrow(minecraft, arrowX, arrowY);
 				itemSlotBackground.draw(minecraft, slotX, slotY);
 				drawEnergyMeter(minecraft);

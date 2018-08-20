@@ -1,8 +1,5 @@
 package ninjabrain.gendustryjei.categories;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -12,21 +9,23 @@ import mezz.jei.gui.elements.DrawableBlank;
 import net.bdew.gendustry.config.Tuning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import ninjabrain.gendustryjei.wrappers.WrapperProtein;
+import ninjabrain.gendustryjei.wrappers.WrapperDNA;
 
-public class CategoryProtein extends CategoryBase<WrapperProtein>{
+public class CategoryDNA extends CategoryBase<WrapperDNA> {
 	
-	public static final String UUID = "GENDUSTRY_PROTEIN_LIQUIFIER";
+	public static final String UUID = "GENDUSTRY_DNA_LIQUIFIER";
 
 	private IDrawable background;
 
-	private final int tankX = 112, tankY = 0;
+	private final int tankX = energyX + 112, tankY = energyY + 0;
 	private final int arrowX = tankX - 62, arrowY = tankY + 23;
 	private final int slotX = arrowX - 26, slotY = arrowY - 1;
-	private final int energyX = 0, energyY = 0;
+	private final int labwareX = tankX - 48, labwareY = tankY + 4;
 	
-	public CategoryProtein() {
-		super(Item.getByNameOrId("gendustry:liquifier"));
+	private int labwareConsumeChance;
+	
+	public CategoryDNA() {
+		super(Item.getByNameOrId("gendustry:extractor"));
 		background = new DrawableBlank(130, 60) {
 			@Override
 			public void draw(Minecraft minecraft, int xOffset, int yOffset) {
@@ -34,10 +33,12 @@ public class CategoryProtein extends CategoryBase<WrapperProtein>{
 				tankBackground.draw(minecraft, tankX, tankY);
 				drawArrow(minecraft, arrowX, arrowY);
 				itemSlotBackground.draw(minecraft, slotX, slotY);
+				itemSlotBackground.draw(minecraft, labwareX, labwareY);
 				drawEnergyMeter(minecraft);
 			}
 		};
-		rfPerItem = Tuning.getSection("Machines").getSection("Liquifier").getInt("MjPerItem");
+		rfPerItem = Tuning.getSection("Machines").getSection("Extractor").getInt("MjPerItem");
+		labwareConsumeChance = Tuning.getSection("Machines").getSection("Extractor").getInt("LabwareConsumeChance");
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class CategoryProtein extends CategoryBase<WrapperProtein>{
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, WrapperProtein recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, WrapperDNA recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
 
@@ -54,20 +55,13 @@ public class CategoryProtein extends CategoryBase<WrapperProtein>{
 				tankOverlay);
 
 		itemStacks.init(0, true, slotX, slotY);
+		itemStacks.init(1, true, labwareX, labwareY);
+		itemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+			if (slotIndex == 1) tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
+		});
 
 		itemStacks.set(ingredients);
 		fluidStacks.set(ingredients);
-	}
-	
-	private List<String> tooltipList = new ArrayList<String>();
-	@Override
-	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		if (energyX <= mouseX && energyX + 18 > mouseX && energyY <= mouseY && energyY + 60 > mouseY ) {
-			tooltipList.clear();
-			tooltipList.add("Energy: " + rfPerItem + " RF");
-			return tooltipList;
-		}
-		return super.getTooltipStrings(mouseX, mouseY);
 	}
 
 	@Override

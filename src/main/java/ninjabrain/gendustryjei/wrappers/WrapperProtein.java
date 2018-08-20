@@ -13,10 +13,10 @@ public class WrapperProtein implements IRecipeWrapper {
 
 	/**
 	 * @param input
-	 *            The item that will produce mutagen inside a Mutagen Producer from
+	 *            The item that will produce protein inside a Protein Liquifier from
 	 *            gendustry
 	 * @param mb
-	 *            The amount of mutagen one item will produce in millibuckets
+	 *            The amount of protein one item will produce in millibuckets
 	 */
 	public WrapperProtein(ItemStack input, int mb) {
 		this.input = input;
