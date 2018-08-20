@@ -1,8 +1,5 @@
 package ninjabrain.gendustryjei.categories;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -20,13 +17,9 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 
 	private IDrawable background;
 
-	private final int tankX = 112, tankY = 0;
+	private final int tankX = energyX + 112, tankY = energyY + 0;
 	private final int arrowX = tankX - 62, arrowY = tankY + 23;
 	private final int slotX = arrowX - 26, slotY = arrowY - 1;
-	private final int energyX = 0, energyY = 0;
-	
-	// The same for all recipes
-	private int rfPerItem, maxStoredRf;
 
 	public CategoryMutagen() {
 		super(Item.getByNameOrId("gendustry:mutagen_producer"));
@@ -35,13 +28,13 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 			public void draw(Minecraft minecraft, int xOffset, int yOffset) {
 				super.draw(minecraft, xOffset, yOffset);
 				tankBackground.draw(minecraft, tankX, tankY);
-				arrowBackground.draw(minecraft, arrowX, arrowY);
+//				arrowBackground.draw(minecraft, arrowX, arrowY);
+				drawArrow(minecraft, arrowX, arrowY);
 				itemSlotBackground.draw(minecraft, slotX, slotY);
-				tankBackground.draw(minecraft, energyX, energyY);
+				drawEnergyMeter(minecraft);
 			}
 		};
 		rfPerItem = Tuning.getSection("Machines").getSection("MutagenProducer").getInt("MjPerItem");
-		maxStoredRf = Tuning.getSection("Machines").getSection("MutagenProducer").getInt("MaxStoredEnergy");
 	}
 
 	@Override
@@ -61,17 +54,6 @@ public class CategoryMutagen extends CategoryBase<WrapperMutagen> {
 
 		itemStacks.set(ingredients);
 		fluidStacks.set(ingredients);
-	}
-	
-	private List<String> tooltipList = new ArrayList<String>();
-	@Override
-	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		if (energyX <= mouseX && energyX + 18 > mouseX && energyY <= mouseY && energyY + 60 > mouseY ) {
-			tooltipList.clear();
-			tooltipList.add("Energy: " + rfPerItem + " RF");
-			return tooltipList;
-		}
-		return super.getTooltipStrings(mouseX, mouseY);
 	}
 
 	@Override

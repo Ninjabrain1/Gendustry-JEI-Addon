@@ -25,9 +25,6 @@ public class CategoryProtein extends CategoryBase<WrapperProtein>{
 	private final int slotX = arrowX - 26, slotY = arrowY - 1;
 	private final int energyX = 0, energyY = 0;
 	
-	// The same for all recipes
-	private int rfPerItem, maxStoredRf;
-	
 	public CategoryProtein() {
 		super(Item.getByNameOrId("gendustry:liquifier"));
 		background = new DrawableBlank(130, 60) {
@@ -35,13 +32,13 @@ public class CategoryProtein extends CategoryBase<WrapperProtein>{
 			public void draw(Minecraft minecraft, int xOffset, int yOffset) {
 				super.draw(minecraft, xOffset, yOffset);
 				tankBackground.draw(minecraft, tankX, tankY);
-				arrowBackground.draw(minecraft, arrowX, arrowY);
+//				arrowBackground.draw(minecraft, arrowX, arrowY);
+				drawArrow(minecraft, arrowX, arrowY);
 				itemSlotBackground.draw(minecraft, slotX, slotY);
-				tankBackground.draw(minecraft, energyX, energyY);
+				drawEnergyMeter(minecraft);
 			}
 		};
 		rfPerItem = Tuning.getSection("Machines").getSection("Liquifier").getInt("MjPerItem");
-		maxStoredRf = Tuning.getSection("Machines").getSection("Liquifier").getInt("MaxStoredEnergy");
 	}
 
 	@Override

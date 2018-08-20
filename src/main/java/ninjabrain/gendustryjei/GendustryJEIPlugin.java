@@ -24,6 +24,7 @@ public class GendustryJEIPlugin implements IModPlugin {
 	
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
+		CategoryBase.loadWidgets(registry);
 		categories = new CategoryBase[] {
 				new CategoryMutagen(),
 				new CategoryProtein()
