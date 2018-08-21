@@ -28,6 +28,9 @@ public class WrapperMutatron extends WrapperGenetic {
 	
 	ItemStack labware;
 	FluidStack inputFluid;
+	
+	private static boolean initialized = false;
+	private static int fluidAmount;
 
 	public WrapperMutatron(IMutation mutation) {
 		root = mutation.getRoot();
@@ -37,7 +40,10 @@ public class WrapperMutatron extends WrapperGenetic {
 		resultStack = GeneticHelper.getItemStackFromTemplate(root, mutation.getTemplate(), getSpeciesTypeForSlot(2, root));
 		
 		labware = createLabwareStack();
-		int fluidAmount = Tuning.getSection("Machines").getSection("Mutatron").getInt("MutagenPerItem");
+		if (!initialized) {
+			fluidAmount = Tuning.getSection("Machines").getSection("Mutatron").getInt("MutagenPerItem");
+			initialized = true;
+		}
 		inputFluid = new FluidStack(FluidRegistry.getFluid("mutagen"), fluidAmount);
 	}
 

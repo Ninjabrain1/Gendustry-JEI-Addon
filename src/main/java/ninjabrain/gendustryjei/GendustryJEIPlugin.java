@@ -20,6 +20,7 @@ import ninjabrain.gendustryjei.categories.CategoryImprinter;
 import ninjabrain.gendustryjei.categories.CategoryMutagen;
 import ninjabrain.gendustryjei.categories.CategoryMutatron;
 import ninjabrain.gendustryjei.categories.CategoryProtein;
+import ninjabrain.gendustryjei.categories.CategoryReplicator;
 import ninjabrain.gendustryjei.categories.CategorySampler;
 import ninjabrain.gendustryjei.categories.CategoryTransposer;
 import ninjabrain.gendustryjei.init.RecipeConverter;
@@ -28,6 +29,7 @@ import ninjabrain.gendustryjei.init.RecipeConverterImprinter;
 import ninjabrain.gendustryjei.init.RecipeConverterMutagen;
 import ninjabrain.gendustryjei.init.RecipeConverterMutatron;
 import ninjabrain.gendustryjei.init.RecipeConverterProtein;
+import ninjabrain.gendustryjei.init.RecipeConverterReplicator;
 import ninjabrain.gendustryjei.init.RecipeConverterSampler;
 import ninjabrain.gendustryjei.init.RecipeConverterTransposer;
 import ninjabrain.gendustryjei.init.RecipeReader;
@@ -36,6 +38,7 @@ import ninjabrain.gendustryjei.wrappers.WrapperImprinter;
 import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
 import ninjabrain.gendustryjei.wrappers.WrapperMutatron;
 import ninjabrain.gendustryjei.wrappers.WrapperProtein;
+import ninjabrain.gendustryjei.wrappers.WrapperReplicator;
 import ninjabrain.gendustryjei.wrappers.WrapperSampler;
 import ninjabrain.gendustryjei.wrappers.WrapperTransposer;
 
@@ -96,7 +99,8 @@ public class GendustryJEIPlugin implements IModPlugin {
 				new CategoryMutatron(),
 				new CategorySampler(),
 				new CategoryTransposer(),
-				new CategoryImprinter()
+				new CategoryImprinter(),
+				new CategoryReplicator()
 		};
 		registry.addRecipeCategories(categories);
 	}
@@ -110,6 +114,7 @@ public class GendustryJEIPlugin implements IModPlugin {
 		ArrayList<WrapperSampler> samplerWrappers = new ArrayList<WrapperSampler>();
 		ArrayList<WrapperTransposer> transposerWrappers = new ArrayList<WrapperTransposer>();
 		ArrayList<WrapperImprinter> imprinterWrappers = new ArrayList<WrapperImprinter>();
+		ArrayList<WrapperReplicator> replicatorWrappers = new ArrayList<WrapperReplicator>();
 		
 		RecipeConverter<?>[] converters = new RecipeConverter[] {
 				new RecipeConverterMutagen(mutagenWrappers),
@@ -118,7 +123,8 @@ public class GendustryJEIPlugin implements IModPlugin {
 				new RecipeConverterMutatron(mutatronWrappers),
 				new RecipeConverterSampler(samplerWrappers),
 				new RecipeConverterTransposer(transposerWrappers),
-				new RecipeConverterImprinter(imprinterWrappers)
+				new RecipeConverterImprinter(imprinterWrappers),
+				new RecipeConverterReplicator(replicatorWrappers)
 		};
 		RecipeReader.convertGendustryRecipes(converters);
 		
@@ -129,6 +135,7 @@ public class GendustryJEIPlugin implements IModPlugin {
 		registry.addRecipes(samplerWrappers, CategorySampler.UID);
 		registry.addRecipes(transposerWrappers, CategoryTransposer.UID);
 		registry.addRecipes(imprinterWrappers, CategoryImprinter.UID);
+		registry.addRecipes(replicatorWrappers, CategoryReplicator.UID);
 		
 		for (CategoryBase<?> category : categories) {
 			registry.addRecipeCatalyst(new ItemStack(category.getMachine()), category.getUid());

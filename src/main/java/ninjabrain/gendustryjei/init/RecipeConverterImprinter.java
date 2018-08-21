@@ -3,7 +3,6 @@ package ninjabrain.gendustryjei.init;
 import java.util.ArrayList;
 
 import forestry.api.genetics.IAllele;
-import forestry.api.genetics.IIndividual;
 import forestry.api.genetics.ISpeciesRoot;
 import forestry.api.genetics.ISpeciesType;
 import net.bdew.gendustry.items.GeneTemplate;

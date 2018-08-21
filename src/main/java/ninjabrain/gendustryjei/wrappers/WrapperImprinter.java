@@ -3,9 +3,7 @@ package ninjabrain.gendustryjei.wrappers;
 import java.util.ArrayList;
 
 import mezz.jei.api.ingredients.IIngredients;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class WrapperImprinter extends WrapperGenetic {
 	

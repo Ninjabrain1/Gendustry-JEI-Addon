@@ -4,13 +4,10 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IFocus;
 import mezz.jei.gui.elements.DrawableBlank;
 import net.bdew.gendustry.config.Tuning;
-import net.bdew.lib.network.ItemStackSerialize;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import ninjabrain.gendustryjei.wrappers.WrapperImprinter;
 
 public class CategoryImprinter extends CategoryBase<WrapperImprinter> {
