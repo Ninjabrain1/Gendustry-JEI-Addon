@@ -22,12 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class WrapperMutatron implements IRecipeWrapper {
-
-	// ArrayList<List<ItemStack>> inputItems;
-	// FluidStack inputFluid;
-	// List<ItemStack> output;
-
+public class WrapperMutatron extends WrapperGenetic {
+	
 	ISpeciesRoot root;
 	IMutation mutation;
 	ItemStack parent0Stack;
@@ -44,7 +40,7 @@ public class WrapperMutatron implements IRecipeWrapper {
 		parent1Stack = getItemStackFromSpecies(root, mutation.getAllele1(), getSpeciesTypeForSlot(1, root));
 		resultStack = getItemStackFromTemplate(root, mutation.getTemplate(), getSpeciesTypeForSlot(2, root));
 		
-		labware = new ItemStack(Item.getByNameOrId("gendustry:labware"));
+		labware = createLabwareStack();
 		int fluidAmount = Tuning.getSection("Machines").getSection("Mutatron").getInt("MutagenPerItem");
 		inputFluid = new FluidStack(FluidRegistry.getFluid("mutagen"), fluidAmount);
 	}
@@ -61,73 +57,6 @@ public class WrapperMutatron implements IRecipeWrapper {
 		ingredients.setOutputLists(ItemStack.class, outputs);
 
 		ingredients.setInput(FluidStack.class, inputFluid);
-	}
-
-	private List<ItemStack> getAllItemsFromSpecies(ISpeciesRoot root, IAlleleSpecies species) {
-		ISpeciesType[] allTypes = getAllTypes(root);
-		ArrayList<ItemStack> allItemsFromSpecies = new ArrayList<ItemStack>();
-		for (int i = 0; i < allTypes.length; i++) {
-			allItemsFromSpecies.add(getItemStackFromSpecies(root, species, allTypes[i]));
-		}
-		return allItemsFromSpecies;
-	}
-
-	private List<ItemStack> getAllItemsFromTemplate(ISpeciesRoot root, IAllele[] template) {
-		ISpeciesType[] allTypes = getAllTypes(root);
-		ArrayList<ItemStack> allItemsFromTemplate = new ArrayList<ItemStack>();
-		for (int i = 0; i < allTypes.length; i++) {
-			allItemsFromTemplate.add(getItemStackFromTemplate(root, template, allTypes[i]));
-		}
-		return allItemsFromTemplate;
-	}
-	
-	// Cannot use EnumBeeType.VALUES because I want to exclude larvae
-	private static final EnumBeeType[] BEETYPES = new EnumBeeType[] {
-			EnumBeeType.DRONE,
-			EnumBeeType.PRINCESS,
-			EnumBeeType.QUEEN};
-	// Let me know if there is a general way to get all species types other than to
-	// hard code it
-	private ISpeciesType[] getAllTypes(ISpeciesRoot root) {
-		if (root instanceof IBeeRoot) {
-			return BEETYPES;
-		} else if (root instanceof ITreeRoot) {
-			return EnumGermlingType.VALUES;
-		}
-		return new ISpeciesType[] { root.getIconType() };
-	}
-
-	private ISpeciesType getSpeciesTypeForSlot(int slot, ISpeciesRoot root) {
-		if (root instanceof IBeeRoot) {
-			switch (slot) {
-			case 0:
-				return EnumBeeType.DRONE;
-			case 1:
-				return EnumBeeType.PRINCESS;
-			}
-			return EnumBeeType.QUEEN;
-		} else if (root instanceof ITreeRoot) {
-			switch (slot) {
-			case 0:
-				return EnumGermlingType.POLLEN;
-			case 1:
-				return EnumGermlingType.SAPLING;
-			}
-			return EnumGermlingType.SAPLING;
-		}
-		// Might result in invalid recipes
-		return root.getIconType();
-	}
-
-	private ItemStack getItemStackFromSpecies(ISpeciesRoot root, IAlleleSpecies species, ISpeciesType type) {
-		IAllele[] template = root.getTemplate(species.getUID());
-		return getItemStackFromTemplate(root, template, type);
-	}
-
-	private ItemStack getItemStackFromTemplate(ISpeciesRoot root, IAllele[] template, ISpeciesType type) {
-		IIndividual individual = root.templateAsIndividual(template);
-		individual.analyze();
-		return root.getMemberStack(individual, type);
 	}
 	
 	public ItemStack getParent0Stack() {

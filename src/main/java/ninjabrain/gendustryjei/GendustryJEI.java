@@ -29,6 +29,10 @@ public class GendustryJEI {
 		proxy.postInit(event);
 	}
 	
+	// TODO Add percentage chance of mutation happening in regular mutatron
+	// TODO Add percentage chance of getting gene sample in Sampler
+	// TODO Add recipes for converting Extra Bees Serums into Gendustry Samples
+	// TODO Config to enable/disable showing recipes
 	// TODO Sampler
 	// TODO Imprinter
 	// TODO Genetic Transposer

@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import ninjabrain.gendustryjei.wrappers.WrapperMutatron;
 
 public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
-	
+
 	public static final String UID = "GENDUSTRY_MUTATRON";
 
 	private IDrawable background;
@@ -23,9 +23,9 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 	private final int slotDroneX = slotPrincessX, slotDroneY = slotPrincessY + 22;
 	private final int slotQueenX = arrowX + 60, slotQueenY = arrowY - 2;
 	private final int labwareX = arrowX + 15, labwareY = arrowY - 18;
-	
+
 	private int labwareConsumeChance;
-	
+
 	public CategoryMutatron() {
 		super(Item.getByNameOrId("gendustry:mutatron"));
 		background = new DrawableBlank(150, 60) {
@@ -57,17 +57,18 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 
 		fluidStacks.init(0, true, tankX + 1, tankY + 1, tankOverlay.getWidth(), tankOverlay.getHeight(), 2000, false,
 				tankOverlay);
-		
+
 		itemStacks.init(0, true, slotDroneX, slotDroneY);
 		itemStacks.init(1, true, slotPrincessX, slotPrincessY);
 		itemStacks.init(2, true, labwareX, labwareY);
 		itemStacks.init(3, false, slotQueenX, slotQueenY);
 		itemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			if (slotIndex == 2) tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
+			if (slotIndex == 2)
+				tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
 		});
-		
+
 		fluidStacks.set(ingredients);
-		
+
 		itemStacks.set(0, recipeWrapper.getParent0Stack());
 		itemStacks.set(1, recipeWrapper.getParent1Stack());
 		itemStacks.set(2, recipeWrapper.getLabware());
@@ -78,5 +79,5 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 	public String getUid() {
 		return UID;
 	}
-	
+
 }
