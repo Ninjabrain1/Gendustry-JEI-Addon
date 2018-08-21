@@ -13,8 +13,10 @@ import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import ninjabrain.gendustryjei.categories.CategoryBase;
 import ninjabrain.gendustryjei.categories.CategoryDNA;
+import ninjabrain.gendustryjei.categories.CategoryImprinter;
 import ninjabrain.gendustryjei.categories.CategoryMutagen;
 import ninjabrain.gendustryjei.categories.CategoryMutatron;
 import ninjabrain.gendustryjei.categories.CategoryProtein;
@@ -22,6 +24,7 @@ import ninjabrain.gendustryjei.categories.CategorySampler;
 import ninjabrain.gendustryjei.categories.CategoryTransposer;
 import ninjabrain.gendustryjei.init.RecipeConverter;
 import ninjabrain.gendustryjei.init.RecipeConverterDNA;
+import ninjabrain.gendustryjei.init.RecipeConverterImprinter;
 import ninjabrain.gendustryjei.init.RecipeConverterMutagen;
 import ninjabrain.gendustryjei.init.RecipeConverterMutatron;
 import ninjabrain.gendustryjei.init.RecipeConverterProtein;
@@ -29,6 +32,7 @@ import ninjabrain.gendustryjei.init.RecipeConverterSampler;
 import ninjabrain.gendustryjei.init.RecipeConverterTransposer;
 import ninjabrain.gendustryjei.init.RecipeReader;
 import ninjabrain.gendustryjei.wrappers.WrapperDNA;
+import ninjabrain.gendustryjei.wrappers.WrapperImprinter;
 import ninjabrain.gendustryjei.wrappers.WrapperMutagen;
 import ninjabrain.gendustryjei.wrappers.WrapperMutatron;
 import ninjabrain.gendustryjei.wrappers.WrapperProtein;
@@ -62,10 +66,24 @@ public class GendustryJEIPlugin implements IModPlugin {
 				return ISubtypeInterpreter.NONE;
 			}
 		};
+		ISubtypeInterpreter geneTemplateInterpreter = new ISubtypeInterpreter() {
+			@Override
+			public String apply(ItemStack template) {
+				NBTTagCompound compound = template.getTagCompound();
+				if (compound != null) {
+					NBTTagCompound chromosome0 = (NBTTagCompound)compound.getTagList("samples", 10).get(0);
+					String species = ((NBTTagCompound)chromosome0).getString("allele");
+					return species;
+				}
+				return ISubtypeInterpreter.NONE;
+			}
+		};
+		
 		// Drones, princesses, queens are already registered subtypes by Forestry, register tree types:
 		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:sapling"), treeSpeciesInterpreter);
 		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:pollen_fertile"), treeSpeciesInterpreter);
 		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("gendustry:gene_sample"), geneSampleInterpreter);
+		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("gendustry:gene_template"), geneTemplateInterpreter);
 	}
 	
 	@Override
@@ -77,7 +95,8 @@ public class GendustryJEIPlugin implements IModPlugin {
 				new CategoryDNA(),
 				new CategoryMutatron(),
 				new CategorySampler(),
-				new CategoryTransposer()
+				new CategoryTransposer(),
+				new CategoryImprinter()
 		};
 		registry.addRecipeCategories(categories);
 	}
@@ -90,6 +109,7 @@ public class GendustryJEIPlugin implements IModPlugin {
 		ArrayList<WrapperMutatron> mutatronWrappers = new ArrayList<WrapperMutatron>();
 		ArrayList<WrapperSampler> samplerWrappers = new ArrayList<WrapperSampler>();
 		ArrayList<WrapperTransposer> transposerWrappers = new ArrayList<WrapperTransposer>();
+		ArrayList<WrapperImprinter> imprinterWrappers = new ArrayList<WrapperImprinter>();
 		
 		RecipeConverter<?>[] converters = new RecipeConverter[] {
 				new RecipeConverterMutagen(mutagenWrappers),
@@ -97,7 +117,8 @@ public class GendustryJEIPlugin implements IModPlugin {
 				new RecipeConverterDNA(dnaWrappers),
 				new RecipeConverterMutatron(mutatronWrappers),
 				new RecipeConverterSampler(samplerWrappers),
-				new RecipeConverterTransposer(transposerWrappers)
+				new RecipeConverterTransposer(transposerWrappers),
+				new RecipeConverterImprinter(imprinterWrappers)
 		};
 		RecipeReader.convertGendustryRecipes(converters);
 		
@@ -107,6 +128,7 @@ public class GendustryJEIPlugin implements IModPlugin {
 		registry.addRecipes(mutatronWrappers, CategoryMutatron.UID);
 		registry.addRecipes(samplerWrappers, CategorySampler.UID);
 		registry.addRecipes(transposerWrappers, CategoryTransposer.UID);
+		registry.addRecipes(imprinterWrappers, CategoryImprinter.UID);
 		
 		for (CategoryBase<?> category : categories) {
 			registry.addRecipeCatalyst(new ItemStack(category.getMachine()), category.getUid());

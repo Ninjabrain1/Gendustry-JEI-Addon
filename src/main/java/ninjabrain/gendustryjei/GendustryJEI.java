@@ -24,9 +24,7 @@ public class GendustryJEI {
 	// TODO Add percentage chance of getting gene sample in Sampler
 	// TODO Add recipes for converting Extra Bees Serums into Gendustry Samples
 	// TODO Config to enable/disable showing recipes
-	// TODO Sampler
-	// TODO Imprinter
-	// TODO Genetic Transposer
-	// TODO Replicator
 	// TODO Combine gene samples with templates in crafting grid
+	// TODO Imprinter
+	// TODO Replicator
 }

@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import forestry.api.apiculture.EnumBeeType;
+import forestry.api.apiculture.IBeeRoot;
+import forestry.api.arboriculture.EnumGermlingType;
+import forestry.api.arboriculture.ITreeRoot;
 import forestry.api.genetics.IMutation;
 import forestry.api.genetics.ISpeciesRoot;
+import forestry.api.genetics.ISpeciesType;
 import mezz.jei.api.ingredients.IIngredients;
 import net.bdew.gendustry.config.Tuning;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import ninjabrain.gendustryjei.GeneticHelper;
 
 public class WrapperMutatron extends WrapperGenetic {
 	
@@ -26,9 +32,9 @@ public class WrapperMutatron extends WrapperGenetic {
 	public WrapperMutatron(IMutation mutation) {
 		root = mutation.getRoot();
 		this.mutation = mutation;
-		parent0Stack = getItemStackFromSpecies(root, mutation.getAllele0(), getSpeciesTypeForSlot(0, root));
-		parent1Stack = getItemStackFromSpecies(root, mutation.getAllele1(), getSpeciesTypeForSlot(1, root));
-		resultStack = getItemStackFromTemplate(root, mutation.getTemplate(), getSpeciesTypeForSlot(2, root));
+		parent0Stack = GeneticHelper.getItemStackFromSpecies(root, mutation.getAllele0(), getSpeciesTypeForSlot(0, root));
+		parent1Stack = GeneticHelper.getItemStackFromSpecies(root, mutation.getAllele1(), getSpeciesTypeForSlot(1, root));
+		resultStack = GeneticHelper.getItemStackFromTemplate(root, mutation.getTemplate(), getSpeciesTypeForSlot(2, root));
 		
 		labware = createLabwareStack();
 		int fluidAmount = Tuning.getSection("Machines").getSection("Mutatron").getInt("MutagenPerItem");
@@ -38,15 +44,37 @@ public class WrapperMutatron extends WrapperGenetic {
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		ArrayList<List<ItemStack>> inputs = new ArrayList<List<ItemStack>>();
-		inputs.add(getAllItemsFromSpecies(root, mutation.getAllele0()));
-		inputs.add(getAllItemsFromSpecies(root, mutation.getAllele1()));
+		inputs.add(GeneticHelper.getAllItemsFromSpecies(root, mutation.getAllele0()));
+		inputs.add(GeneticHelper.getAllItemsFromSpecies(root, mutation.getAllele1()));
 		inputs.add(Collections.singletonList(labware));
 		ingredients.setInputLists(ItemStack.class, inputs);
 
-		List<List<ItemStack>> outputs = Collections.singletonList(getAllItemsFromTemplate(root, mutation.getTemplate()));
+		List<List<ItemStack>> outputs = Collections.singletonList(GeneticHelper.getAllItemsFromTemplate(root, mutation.getTemplate()));
 		ingredients.setOutputLists(ItemStack.class, outputs);
 
 		ingredients.setInput(FluidStack.class, inputFluid);
+	}
+	
+	protected ISpeciesType getSpeciesTypeForSlot(int slot, ISpeciesRoot root) {
+		if (root instanceof IBeeRoot) {
+			switch (slot) {
+			case 0:
+				return EnumBeeType.DRONE;
+			case 1:
+				return EnumBeeType.PRINCESS;
+			}
+			return EnumBeeType.QUEEN;
+		} else if (root instanceof ITreeRoot) {
+			switch (slot) {
+			case 0:
+				return EnumGermlingType.POLLEN;
+			case 1:
+				return EnumGermlingType.SAPLING;
+			}
+			return EnumGermlingType.SAPLING;
+		}
+		// Might result in invalid recipes
+		return root.getIconType();
 	}
 	
 	public ItemStack getParent0Stack() {

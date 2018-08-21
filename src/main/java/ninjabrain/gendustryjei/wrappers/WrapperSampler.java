@@ -11,6 +11,7 @@ import net.bdew.gendustry.forestry.GeneSampleInfo;
 import net.bdew.gendustry.items.GeneSample;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import ninjabrain.gendustryjei.GeneticHelper;
 
 public class WrapperSampler extends WrapperGenetic {
 	
@@ -35,7 +36,7 @@ public class WrapperSampler extends WrapperGenetic {
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		ArrayList<List<ItemStack>> inputs = new ArrayList<List<ItemStack>>();
-		inputs.add(getAllItemsFromTemplate(root, input));
+		inputs.add(GeneticHelper.getAllItemsFromTemplate(root, input));
 		inputs.add(blankSample);
 		inputs.add(labware);
 		
