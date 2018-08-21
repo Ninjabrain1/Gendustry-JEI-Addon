@@ -1,4 +1,4 @@
-# Gendustry JEI Addon
+# Gendustry JEI Addon [![](http://cf.way2muchnoise.eu/full_301364_downloads.svg)](https://minecraft.curseforge.com/projects/gendustry-jei-addon)
 
 Integrates recipes from Gendustry's various machines with Just Enough Items.
 
