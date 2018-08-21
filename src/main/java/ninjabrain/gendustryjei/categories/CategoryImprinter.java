@@ -69,23 +69,5 @@ public class CategoryImprinter extends CategoryBase<WrapperImprinter> {
 		
 		itemStacks.set(ingredients);
 		
-//		ItemStack template = itemStacks.getGuiIngredients().get(1).getDisplayedIngredient();
-//		ItemStack inputSpecimen = itemStacks.getGuiIngredients().get(0).getDisplayedIngredient();
-//		ItemStack outputSpecimen = recipeWrapper.getSpecimenFromGeneTemplate(inputSpecimen, template);
-//		System.out.println(outputSpecimen.getTagCompound().toString());
-//		itemStacks.set(3, outputSpecimen.copy());
-		
-		// If the player looks at one specific item prevent JEI from cycling through all of them
-//		IFocus<?> focus = recipeLayout.getFocus();
-//		if (focus != null && focus.getValue() instanceof ItemStack) {
-//			ItemStack copy = (ItemStack) focus.getValue();
-//			for (ItemStack canBeCopied : recipeWrapper.getCopyingStack()) {
-//				if (copy.getItem() == canBeCopied.getItem()) {
-//					itemStacks.set(1, copy);
-//					itemStacks.set(3, copy);
-//					break;
-//				}
-//			}
-//		}
 	}
 }
