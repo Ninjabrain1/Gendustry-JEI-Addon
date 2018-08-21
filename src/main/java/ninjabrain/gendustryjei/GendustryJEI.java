@@ -29,7 +29,6 @@ public class GendustryJEI {
 		proxy.postInit(event);
 	}
 	
-	// TODO Mutatron + Advanced Mutatron
 	// TODO Sampler
 	// TODO Imprinter
 	// TODO Genetic Transposer

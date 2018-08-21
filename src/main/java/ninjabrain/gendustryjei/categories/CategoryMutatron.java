@@ -1,7 +1,5 @@
 package ninjabrain.gendustryjei.categories;
 
-import java.util.List;
-
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -11,9 +9,7 @@ import mezz.jei.gui.elements.DrawableBlank;
 import net.bdew.gendustry.config.Tuning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import ninjabrain.gendustryjei.wrappers.WrapperMutatron;
-import scala.actors.threadpool.Arrays;
 
 public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 	
@@ -70,24 +66,12 @@ public class CategoryMutatron extends CategoryBase<WrapperMutatron> {
 			if (slotIndex == 2) tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
 		});
 		
-		// Spaghetti solution, but anything else would have been too complicated
-		// Each list for ingredient slot looks like: [drone, princess, queen]
-		// Remove princesses and queens from drone slot
-		List<ItemStack> droneIngredients = ingredients.getInputs(ItemStack.class).get(0);
-		droneIngredients.remove(1);
-		droneIngredients.remove(1);
-		// Remove drones and queens from princess slot
-		List<ItemStack> princessIngredients = ingredients.getInputs(ItemStack.class).get(1);
-		princessIngredients.remove(0);
-		princessIngredients.remove(1);
-		// Remove drones and princesses from queen slot
-		List<ItemStack> queenIngredients = ingredients.getOutputs(ItemStack.class).get(0);
-		queenIngredients.remove(0);
-		queenIngredients.remove(0);
-		
-		itemStacks.set(ingredients);
 		fluidStacks.set(ingredients);
 		
+		itemStacks.set(0, recipeWrapper.getParent0Stack());
+		itemStacks.set(1, recipeWrapper.getParent1Stack());
+		itemStacks.set(2, recipeWrapper.getLabware());
+		itemStacks.set(3, recipeWrapper.getResultStack());
 	}
 
 	@Override

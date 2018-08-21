@@ -2,8 +2,13 @@ package ninjabrain.gendustryjei;
 
 import java.util.ArrayList;
 
+import forestry.api.arboriculture.TreeManager;
+import forestry.api.genetics.IAlleleSpecies;
+import forestry.core.genetics.Genome;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.ISubtypeRegistry;
+import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.Item;
@@ -30,6 +35,23 @@ public class GendustryJEIPlugin implements IModPlugin {
 	CategoryBase<?>[] categories;
 	
 	@Override
+	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+		ISubtypeInterpreter treeSpeciesInterpreter = new ISubtypeInterpreter() {
+			@Override
+			public String apply(ItemStack itemStack) {
+				IAlleleSpecies species = Genome.getSpeciesDirectly(TreeManager.treeRoot, itemStack);
+				if (species == null) {
+					return ISubtypeInterpreter.NONE;
+				}
+				return species.getUID();
+			}
+		};
+		// Drones, princesses, queens are already registered subtypes by Forestry, register tree types:
+		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:sapling"), treeSpeciesInterpreter);
+		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:pollen_fertile"), treeSpeciesInterpreter);
+	}
+	
+	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		CategoryBase.loadWidgets(registry);
 		categories = new CategoryBase[] {
@@ -38,9 +60,7 @@ public class GendustryJEIPlugin implements IModPlugin {
 				new CategoryDNA(),
 				new CategoryMutatron()
 		};
-		for (CategoryBase<?> category : categories) {
-			registry.addRecipeCategories(category);
-		}
+		registry.addRecipeCategories(categories);
 	}
 	
 	@Override
