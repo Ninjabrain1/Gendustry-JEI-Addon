@@ -1,24 +1,6 @@
 # Gendustry JEI Addon
 
-Integrates recipes from Gendustry's various machines with Just Enough Items. The mod is a work in progress and currently only supports recipes from the following machines:
-
-<ul>
-  <li> Mutagen Producer </li>
-  <li> DNA Extractor </li>
-  <li> Protein Liquifier </li>
-  <li> Mutatron </li>
-  <li> Genetic Transposer </li>
-  <li> Sampler </li>
-</ul>
-
-No build available yet.
-
-### To do before release
-
-<ul>
-  <li> Imprinter recipes </li>
-  <li> Replicator recipes </li>
-</ul>
+Integrates recipes from Gendustry's various machines with Just Enough Items.
 
 ### Planned features
 
@@ -29,3 +11,5 @@ No build available yet.
 	<li> Config to enable/disable showing certain recipes </li>
 	<li> Integrate recipe for combining gene samples with templates in crafting grid </li>
 </ul>
+
+Feel free to contact me if there is a feature you want (even if its already planned)
