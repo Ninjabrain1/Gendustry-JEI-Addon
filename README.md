@@ -7,12 +7,25 @@ Integrates recipes from Gendustry's various machines with Just Enough Items. The
   <li> DNA Extractor </li>
   <li> Protein Liquifier </li>
   <li> Mutatron </li>
+  <li> Genetic Transposer </li>
+  <li> Sampler </li>
 </ul>
 
 No build available yet.
 
-Todo:
+### To do before release
 
 <ul>
-  <li> Show tree mutations in the mutatron </li>
+  <li> Imprinter recipes </li>
+  <li> Replicator recipes </li>
+</ul>
+
+### Planned features
+
+<ul>
+  <li> Add percentage chance of mutation happening in regular mutatron </li>
+	<li> Add percentage chance of getting specific gene sample in Sampler </li>
+	<li> Integrate recipes for converting Extra Bees Serums into Gendustry Samples <l/i>
+	<li> Config to enable/disable showing certain recipes </li>
+	<li> Integrate recipe for combining gene samples with templates in crafting grid </li>
 </ul>
