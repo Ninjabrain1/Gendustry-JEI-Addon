@@ -10,3 +10,9 @@ Integrates recipes from Gendustry's various machines with Just Enough Items. The
 </ul>
 
 No build available yet.
+
+Todo:
+
+<ul>
+  <li> Show tree mutations in the mutatron </li>
+</ul>
