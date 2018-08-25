@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import forestry.api.arboriculture.TreeManager;
 import forestry.api.genetics.IAlleleSpecies;
+import forestry.api.genetics.ISpeciesRoot;
 import forestry.core.genetics.Genome;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -11,6 +12,7 @@ import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.bdew.gendustry.items.GeneTemplate;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -74,19 +76,18 @@ public class GendustryJEIPlugin implements IModPlugin {
 			public String apply(ItemStack template) {
 				NBTTagCompound compound = template.getTagCompound();
 				if (compound != null) {
-					NBTTagCompound chromosome0 = (NBTTagCompound)compound.getTagList("samples", 10).get(0);
-					String species = ((NBTTagCompound)chromosome0).getString("allele");
-					return species;
+					String root = compound.getString("species");
+					return root;
 				}
 				return ISubtypeInterpreter.NONE;
 			}
 		};
 		
 		// Drones, princesses, queens are already registered subtypes by Forestry, register tree types:
-		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:sapling"), treeSpeciesInterpreter);
-		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:pollen_fertile"), treeSpeciesInterpreter);
+//		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:sapling"), treeSpeciesInterpreter);
+//		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("forestry:pollen_fertile"), treeSpeciesInterpreter);
 		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("gendustry:gene_sample"), geneSampleInterpreter);
-		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("gendustry:gene_template"), geneTemplateInterpreter);
+//		subtypeRegistry.registerSubtypeInterpreter(Item.getByNameOrId("gendustry:gene_template"), geneTemplateInterpreter);
 	}
 	
 	@Override
@@ -142,6 +143,8 @@ public class GendustryJEIPlugin implements IModPlugin {
 		}
 		// Mutatron recipes also belong to the Advanced Mutatron
 		registry.addRecipeCatalyst(new ItemStack(Item.getByNameOrId("gendustry:mutatron_advanced")), CategoryMutatron.UID);
+		
+		
 		
 	}
 	

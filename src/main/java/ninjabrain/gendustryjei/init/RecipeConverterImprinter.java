@@ -1,6 +1,7 @@
 package ninjabrain.gendustryjei.init;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import forestry.api.genetics.IAllele;
 import forestry.api.genetics.ISpeciesRoot;
@@ -21,9 +22,10 @@ public class RecipeConverterImprinter extends RecipeConverter<WrapperImprinter> 
 		super(wrapperList);
 		NonNullList<ItemStack> templates = NonNullList.create();
 		GeneTemplate.getSubItems(GendustryCreativeTabs.templates(), templates);
+		HashSet<ISpeciesRoot> addedRoots = new HashSet<ISpeciesRoot>();
 		for (ItemStack template : templates) {
 			ISpeciesRoot root = GeneTemplate.getSpecies(template);
-			if (root != null) {
+			if (root != null && !addedRoots.contains(root)) {
 				NBTTagCompound compound = template.getTagCompound();
 				if (compound != null) {
 					NBTTagCompound chromosome0 = (NBTTagCompound)compound.getTagList("samples", 10).get(0);
@@ -36,7 +38,7 @@ public class RecipeConverterImprinter extends RecipeConverter<WrapperImprinter> 
 						ItemStack outputStack = root.getMemberStack(root.templateAsIndividual(genome), type);
 						wrapperList.add(new WrapperImprinter(inputStack, template, outputStack));
 					}
-					
+					addedRoots.add(root);
 				}
 			}
 		}

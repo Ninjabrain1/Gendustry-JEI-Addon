@@ -65,5 +65,4 @@ public abstract class GeneticHelper {
 		return root.getMemberStack(individual, type);
 	}
 	
-	
 }

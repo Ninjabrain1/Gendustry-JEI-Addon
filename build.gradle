@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.0.0"
+version = "1.0.1"
 group = "ninjabrain.gendustryjei" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "gendustryjei"
 
@@ -51,6 +51,10 @@ repositories {
   maven {
         url "http://maven.ic2.player.to/"
   }
+  maven {
+        name "Jared"
+        url "http://maven.blamejared.com/"
+  }
 }
 
 dependencies {
@@ -61,6 +65,8 @@ dependencies {
 	deobfCompile "net.bdew:bdlib:${bdlib_version}-mc${mc_version}:dev"
     deobfCompile "net.bdew:gendustry:${gendustry_version}-mc${mc_version}:dev"
 	runtime "net.industrial-craft:industrialcraft-2:${ic2_version}"
+	deobfCompile "net.bdew:jeibees:0.9.0.5-mc1.12.2:dev"
+	//deobfCompile "binnie:binnie-mods-${mc_version}:${binnie_version}"
 	
 	//deobfCompile "net.bdew:bdlib:1.14.2.8-mc1.12.1:dev"
     //deobfCompile "net.bdew:gendustry:1.6.5.4-mc1.12:dev"
