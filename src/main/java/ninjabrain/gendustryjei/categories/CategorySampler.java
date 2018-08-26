@@ -64,13 +64,20 @@ public class CategorySampler extends CategoryBase<WrapperSampler> {
 			if (slotIndex == 2)
 				tooltip.add("Chance to consume: " + labwareConsumeChance + "%");
 		});
-
-//		itemStacks.set(0, recipeWrapper.getParent0Stack());
-//		itemStacks.set(1, recipeWrapper.getParent1Stack());
-//		itemStacks.set(2, recipeWrapper.getLabware());
-//		itemStacks.set(3, recipeWrapper.getResultStack());
 		
 		itemStacks.set(ingredients);
+		
+//		IFocus<?> focus = recipeLayout.getFocus();
+//		if (focus != null && focus.getValue() instanceof ItemStack) {
+//			ItemStack stack = (ItemStack) focus.getValue();
+//			if (AlleleManager.alleleRegistry.isIndividual(stack)) {
+//				itemStacks.set(0, stack);
+//			}
+//		}
+		
+		if (itemStacks.getGuiIngredients().get(0).getAllIngredients().size() > 0) {
+			recipeWrapper.setInputStack(itemStacks.getGuiIngredients().get(0).getDisplayedIngredient());
+		}
 	}
 
 }

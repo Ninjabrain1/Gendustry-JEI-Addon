@@ -4,9 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import ninjabrain.gendustryjei.util.ConfigHelper;
 
 @Mod(modid = GendustryJEI.MODID, name = GendustryJEI.NAME, version = GendustryJEI.VERSION)
 public class GendustryJEI {
