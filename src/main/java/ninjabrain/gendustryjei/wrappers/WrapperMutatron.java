@@ -16,7 +16,7 @@ import net.bdew.gendustry.config.Tuning;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import ninjabrain.gendustryjei.GeneticHelper;
+import ninjabrain.gendustryjei.util.GeneticHelper;
 
 public class WrapperMutatron extends WrapperGenetic {
 	

@@ -1,5 +1,7 @@
 package ninjabrain.gendustryjei.init;
 
+import java.util.List;
+
 import net.bdew.gendustry.Gendustry;
 import net.bdew.gendustry.config.loader.Loader;
 import net.bdew.lib.recipes.ConfigStatement;
@@ -8,7 +10,6 @@ import net.bdew.lib.recipes.RecipeLoader;
 import net.bdew.lib.recipes.RecipeStatement;
 import net.bdew.lib.recipes.RecipesHelper;
 import ninjabrain.gendustryjei.GendustryJEI;
-import scala.collection.immutable.List;
 
 /**
  * 
@@ -20,7 +21,7 @@ public class RecipeReader {
 	/**
 	 * Converts Gendustry recipes to JEI Wrappers using the given converters.
 	 */
-	public static void convertGendustryRecipes(RecipeConverter<?>[] converters) {
+	public static void convertGendustryRecipes(List<RecipeConverter<?>> converters) {
 		RecipeLoader loader = new CustomRecipeLoader(converters);
 		// Second, third and fourth arguments copied from
 		// net/bdew/gendustry/config/loader/TuningLoader.scala
@@ -38,9 +39,9 @@ public class RecipeReader {
  */
 class CustomRecipeLoader extends Loader {
 
-	RecipeConverter<?>[] converters;
+	List<RecipeConverter<?>> converters;
 
-	public CustomRecipeLoader(RecipeConverter<?>[] converters) {
+	public CustomRecipeLoader(List<RecipeConverter<?>> converters) {
 		this.converters = converters;
 	}
 
@@ -48,7 +49,7 @@ class CustomRecipeLoader extends Loader {
 	public void processConfigStatement(ConfigStatement statement) {
 		if (statement instanceof CsRecipeBlock) {
 			CsRecipeBlock recipeBlock = (CsRecipeBlock) statement;
-			List<RecipeStatement> recipes = recipeBlock.list();
+			scala.collection.immutable.List<RecipeStatement> recipes = recipeBlock.list();
 			for (int i = 0; i < recipes.size(); i++) {
 				RecipeStatement rs = recipes.apply(i);
 				for (RecipeConverter<?> recipeConverter : converters) {

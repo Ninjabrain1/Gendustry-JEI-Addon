@@ -11,7 +11,7 @@ import net.bdew.gendustry.forestry.GeneSampleInfo;
 import net.bdew.gendustry.items.GeneSample;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import ninjabrain.gendustryjei.GeneticHelper;
+import ninjabrain.gendustryjei.util.GeneticHelper;
 
 public class WrapperSampler extends WrapperGenetic {
 	

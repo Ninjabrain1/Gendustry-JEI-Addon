@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
-import ninjabrain.gendustryjei.GeneticHelper;
+import ninjabrain.gendustryjei.util.GeneticHelper;
 import ninjabrain.gendustryjei.wrappers.WrapperImprinter;
 
 public class RecipeConverterImprinter extends RecipeConverter<WrapperImprinter> {

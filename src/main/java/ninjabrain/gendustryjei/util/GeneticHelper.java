@@ -1,4 +1,4 @@
-package ninjabrain.gendustryjei;
+package ninjabrain.gendustryjei.util;
 
 import java.util.ArrayList;
 import java.util.List;
