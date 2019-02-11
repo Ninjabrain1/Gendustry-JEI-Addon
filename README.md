@@ -2,13 +2,4 @@
 
 Integrates recipes from Gendustry's various machines with Just Enough Items.
 
-### Planned features
-
-<ul>
-  <li> Add percentage chance of mutation happening in regular mutatron </li>
-	<li> Integrate recipe for combining gene samples with templates in crafting grid </li>
-</ul>
-
-Feel free to contact me if there is a feature you want (even if its already planned)
-
 Download the mod at the [Curseforge project page](https://minecraft.curseforge.com/projects/gendustry-jei-addon)
